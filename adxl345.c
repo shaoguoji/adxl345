@@ -6,21 +6,18 @@
 
 int adxl345_spi_device_init(void)
 {
-    
     struct rt_spi_device *spi_dev;
 
     __HAL_RCC_GPIOB_CLK_ENABLE();
     rt_hw_spi_device_attach(ADXL345_SPI_BUS_NAME, ADXL345_SPI_DEVICE_NAME, GPIOB, GPIO_PIN_6);
     spi_dev = (struct rt_spi_device *)rt_device_find(ADXL345_SPI_DEVICE_NAME);
 
-	
-	struct rt_spi_configuration cfg;
+    struct rt_spi_configuration cfg;
     cfg.data_width = 8;
     cfg.mode = RT_SPI_MASTER | RT_SPI_MODE_3 | RT_SPI_MSB;
-    cfg.max_hz = 5000000;      /* 5M */
+    cfg.max_hz = 5000000; /* 5M */
 
     rt_spi_configure(spi_dev, &cfg);
-	
 }
 INIT_COMPONENT_EXPORT(adxl345_spi_device_init);
 
