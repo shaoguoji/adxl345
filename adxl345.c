@@ -31,8 +31,8 @@ int adxl345_init(void)
     rt_kprintf("read device ID: 0x%02x\n", id);
 
     adxl345_reg_write(ADXL345_SPI_DEVICE_NAME, ADXL345_DATA_FORMAT, 0x0B); // ±16g, 13-BIT MODE
-    adxl345_reg_write(ADXL345_SPI_DEVICE_NAME, ADXL345_POWER_CTL, 0x08); // START MEASUREMENT
-    adxl345_reg_write(ADXL345_SPI_DEVICE_NAME, ADXL345_INT_ENABLE, 0x80); // ENABLE DATA_READY INTERRUPT
+    adxl345_reg_write(ADXL345_SPI_DEVICE_NAME, ADXL345_POWER_CTL, 0x08);   // START MEASUREMENT
+    adxl345_reg_write(ADXL345_SPI_DEVICE_NAME, ADXL345_INT_ENABLE, 0x80);  // ENABLE DATA_READY INTERRUPT
 }
 INIT_APP_EXPORT(adxl345_init);
 
@@ -70,7 +70,7 @@ void adxl345_reg_read(char *device_name, rt_uint8_t addr, rt_uint8_t *rev_buf, r
 
 void adxl345_reg_write(char *device_name, rt_uint8_t addr, rt_uint8_t value)
 {
-    struct rt_spi_device *spi_dev_adxl345;     /* SPI 设备句柄 */
+    struct rt_spi_device *spi_dev_adxl345; /* SPI 设备句柄 */
     struct rt_spi_message msg1;
     rt_uint8_t send_buf[2];
 
@@ -80,12 +80,12 @@ void adxl345_reg_write(char *device_name, rt_uint8_t addr, rt_uint8_t value)
     /* 查找 spi 设备获取设备句柄 */
     spi_dev_adxl345 = (struct rt_spi_device *)rt_device_find(device_name);
 
-    msg1.send_buf   = send_buf;
-    msg1.recv_buf   = RT_NULL;
-    msg1.length     = 2;
-    msg1.cs_take    = 1;
+    msg1.send_buf = send_buf;
+    msg1.recv_buf = RT_NULL;
+    msg1.length = 2;
+    msg1.cs_take = 1;
     msg1.cs_release = 1;
-    msg1.next       = RT_NULL;
+    msg1.next = RT_NULL;
 
     rt_spi_transfer_message(spi_dev_adxl345, &msg1);
 }
